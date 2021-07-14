@@ -1,24 +1,30 @@
-import React from "react"
+import React, { useState } from "react"
 
-import store from "./store"
+const Counter = (props: any) => {
 
-import { plusAction, dplusAction } from "./store/actions"
+  const [step, setStep] = useState(1)
 
-const Counter = () => {
-
-  const plus = () => {
-    store.dispatch(plusAction(1))
-  }
+  const { value, onDplusClick, onPlusClick } = props
 
   const dplus = () => {
-    store.dispatch(dplusAction(1))
+    onDplusClick(step)
+  }
+
+  const plus = () => {
+    onPlusClick(step)
+  }
+
+  const changeStep = () => {
+    setStep(Math.floor(Math.random() * 10 + 1))
   }
 
   return <>
-    <h1>count-{store.getState()}</h1>
+    <h1>count-{value}</h1>
     <button onClick={plus}>+</button>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <button onClick={dplus}>-</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button onClick={changeStep}>step-{step}</button>
   </>
 }
 

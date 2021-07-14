@@ -1,20 +1,39 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Counter from './Counter'
-import reportWebVitals from './reportWebVitals'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import reportWebVitals from './reportWebVitals';
+
+import { Provider, connect } from 'react-redux'
 
 import store from './store'
 
-const render = () => ReactDOM.render(
-  <React.StrictMode>
-    <Counter />
-  </React.StrictMode>,
+import { plusAction, dplusAction } from './store/actions'
+
+import Counter from './Counter'
+
+const mapStateToProps = (state: number) => {
+  return {
+    value: state
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    onPlusClick: (num: number) => dispatch(plusAction(num)),
+    onDplusClick: (num: number) => dispatch(dplusAction(num))
+  }
+}
+
+const CounterConnect = connect(mapStateToProps, mapDispatchToProps)(Counter)
+
+
+ReactDOM.render(
+  <Provider store={store}>
+    <React.StrictMode>
+      <CounterConnect />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 )
-
-render()
-
-store.subscribe(render)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

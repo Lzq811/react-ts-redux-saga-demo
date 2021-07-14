@@ -1,15 +1,13 @@
-export const plusAction = (num:number) => {
-  console.log('plusaction')
+export const plusAction = (num: number) => {
   return {
     type: 'PLUS',
-    num
+    value: num
   }
 }
 
-export const dplusAction = (num:number) => {
-  console.log('dplusaction')
+export const dplusAction = (num: number) => {
   return {
     type: 'DPLUS',
-    num
+    value: num
   }
 }
