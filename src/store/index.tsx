@@ -1,12 +1,19 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 
-import reducers from './reducers'
-interface myWin extends Window {
-  __REDUX_DEVTOOLS_EXTENSION__: any
-}
+import createSagaMiddleware from '@redux-saga/core'
 
-declare const window:myWin
+import reducer from './reducers'
 
-const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+import dogsaga from './saga'
+
+const sagaMiddleWare = createSagaMiddleware()
+
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+const enhancers = composeEnhancers(applyMiddleware(sagaMiddleWare))
+
+const store = createStore(reducer, enhancers)
+
+sagaMiddleWare.run(dogsaga)
 
 export default store

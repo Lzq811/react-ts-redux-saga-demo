@@ -1,12 +1,14 @@
-const reducers = (perState: number = 10, action: any) => {
+import ActionTypes from "./ActionTypes"
+
+const defaultState: string = 'https://images.dog.ceo/breeds/shiba/shiba-13.jpg'
+
+const reducer = (perState: string = defaultState, action: any) => {
   switch (action.type) {
-    case 'PLUS':
-      return perState + action.value
-    case 'DPLUS':
-      return perState - action.value
+    case ActionTypes.FETCH_DOG_SUCCESS:
+      return action.url
     default:
       return perState
   }
 }
 
-export default reducers
+export default reducer

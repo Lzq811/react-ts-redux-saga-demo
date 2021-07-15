@@ -1,13 +1,21 @@
-export const plusAction = (num: number) => {
+import ActionTypes from './ActionTypes'
+
+export const FetchDog = () => {
   return {
-    type: 'PLUS',
-    value: num
+    type: ActionTypes.FETCH_DOG
   }
 }
 
-export const dplusAction = (num: number) => {
+export const FetchDogLoaded = (url: string) => {
   return {
-    type: 'DPLUS',
-    value: num
+    type: ActionTypes.FETCH_DOG_SUCCESS,
+    url
+  }
+}
+
+export const FetchDogFail = (err: any) => {
+  return {
+    type: ActionTypes.FETCH_DOG_FAILED,
+    err
   }
 }
