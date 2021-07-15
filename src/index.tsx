@@ -1,13 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { Provider, connect } from 'react-redux'
+
+import store from './store'
+
+import Counter from './components/Counter'
+import ConnectDogs from './components/Dogs'
+
+import { CounterDispatchToProps } from './store/dispatchToProps'
+import { counterSatteToProps } from './store/stateToProps'
+const ConnectCounter = connect(counterSatteToProps, CounterDispatchToProps)(Counter)
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store} >
+    <React.StrictMode>
+      <ConnectCounter />
+      <ConnectDogs />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 
